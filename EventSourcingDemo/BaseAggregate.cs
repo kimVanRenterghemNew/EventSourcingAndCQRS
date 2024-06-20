@@ -1,51 +1,50 @@
-﻿namespace EventSourcingDemo
+﻿namespace EventSourcingDemo;
+
+public abstract class BaseAggregate<TEventInterface>
+    where TEventInterface : Event
 {
-    public abstract class BaseAggregate<TEvent>
-        where TEvent : Event
+    private readonly List<TEventInterface> _events = new ();
+    private readonly Dictionary<Type, List<Action<Event>>> _routes = new ();
+
+    protected IEnumerable<TEventInterface> Events => [.. _events];
+
+    public async ValueTask PlayAllEvents(Func<TEventInterface, Task> writeEvent)
     {
-        private readonly List<TEvent> _events = new List<TEvent>();
-        private readonly Dictionary<Type, List<Action<Event>>> _routes = new Dictionary<Type, List<Action<Event>>>();
-
-        protected List<TEvent> Events => _events.ToList();
-
-        public async Task PlayAllEvents(Func<TEvent, Task> writeEvent)
+        foreach (var @event in _events)
         {
-            foreach (var @event in _events)
-            {
-                await writeEvent(@event);
-            }
+            await writeEvent(@event);
+        }
+    }
+
+    protected void RegisterHandler<TEvent>(Action<TEvent> handler)
+        where TEvent : TEventInterface
+    {
+        if (!_routes.TryGetValue(typeof(TEvent), out var handlers))
+        {
+            handlers = new List<Action<Event>>();
+            _routes.Add(typeof(TEvent), handlers);
         }
 
-        protected void RegisterHandler<TEvent>(Action<TEvent> handler)
-            where TEvent : Event
-        {
-            if (!_routes.TryGetValue(typeof(TEvent), out var handlers))
-            {
-                handlers = new List<Action<Event>>();
-                _routes.Add(typeof(TEvent), handlers);
-            }
+        handlers.Add(x => handler((TEvent)x));
+    }
 
-            handlers.Add(x => handler((TEvent)x));
+    protected void PublishNewEvent(TEventInterface @event)
+    {
+        PlayEvent(@event);
+
+        _events.Add(@event);
+    }
+
+    protected void PlayEvent(TEventInterface @event)
+    {
+        if (!_routes.TryGetValue(@event.GetType(), out var handlers))
+        {
+            return;
         }
 
-        protected void PublishNewEvent(TEvent @event)
+        foreach (var handler in handlers)
         {
-            PlayEvent(@event);
-
-            _events.Add(@event);
-        }
-
-        protected void PlayEvent(TEvent @event)
-        {
-            if (!_routes.TryGetValue(@event.GetType(), out var handlers))
-            {
-                return;
-            }
-
-            foreach (var handler in handlers)
-            {
-                handler(@event);
-            }
+            handler(@event);
         }
     }
 }
