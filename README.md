@@ -6,8 +6,8 @@ Ever wondered how businesses track countless changes while maintaining data inte
 
 What to Expect:
 
-✅ The fundamentals of Event Sourcing: how it captures every state change as an immutable event
-✅ Understanding CQRS (Command Query Responsibility Segregation) and its role in scalable architecture
-✅ Real-world applications: how companies leverage these patterns to enhance reliability and performance
-✅ Best practices for implementing Event Sourcing and CQRS in modern applications
+- ✅ The fundamentals of Event Sourcing: how it captures every state change as an immutable event
+- ✅ Understanding CQRS (Command Query Responsibility Segregation) and its role in scalable architecture
+- ✅ Real-world applications: how companies leverage these patterns to enhance reliability and performance
+- ✅ Best practices for implementing Event Sourcing and CQRS in modern applications
 
