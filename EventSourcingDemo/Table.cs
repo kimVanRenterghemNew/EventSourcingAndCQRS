@@ -41,7 +41,7 @@ public class Table : BaseAggregate<TableEvent>
     {
         var existingOrder = _orders.FirstOrDefault(o => o.OrderId == order);
         
-        if (existingOrder != null)
+        if (existingOrder == null)
         {
             throw new Exception("This order dos not exists.");
         }
