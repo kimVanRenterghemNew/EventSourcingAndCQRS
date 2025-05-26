@@ -1,4 +1,5 @@
 using EventSourcingDemo.Application.Commands;
+using EventSourcingDemo.Application.Projector;
 using EventSourcingDemo.Application.Query;
 using EventSourcingDemo.MongoDb;
 
@@ -18,10 +19,14 @@ public class Program
 
         builder.Services.AddScoped<TablesStore, MongoDbTablesStore>();
         builder.Services.AddScoped<TablesCollection, MongoDbTablesRepository>();
+        builder.Services.AddScoped<OrderCollection, MongoDbOrderRepository>();
         builder.Services.AddScoped<MongoDbTablesRepository>();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.CustomSchemaIds(type => type.FullName);
+        });
 
         var app = builder.Build();
 

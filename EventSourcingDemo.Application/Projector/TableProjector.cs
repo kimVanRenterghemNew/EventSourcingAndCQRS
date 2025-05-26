@@ -3,9 +3,9 @@ using MediatR;
 
 namespace EventSourcingDemo.Application.Projector;
 
-public class TableProjector(TablesCollection tablesCollection) : INotificationHandler<PublicEvetns.TableReserved>, INotificationHandler<PublicEvetns.DrinksOrdered>
+public class TableProjector(TablesCollection tablesCollection) : INotificationHandler<PublicEvents.TableReserved>, INotificationHandler<PublicEvents.DrinksOrdered>
 {
-    public async Task Handle(PublicEvetns.TableReserved notification, CancellationToken cancellationToken)
+    public async Task Handle(PublicEvents.TableReserved notification, CancellationToken cancellationToken)
     {
         var table = await tablesCollection.GetAsync(notification.TableId);
         table = table.Add(new (
@@ -18,7 +18,7 @@ public class TableProjector(TablesCollection tablesCollection) : INotificationHa
         await tablesCollection.UpdateAsync(table);
     }
 
-    public async Task Handle(PublicEvetns.DrinksOrdered notification, CancellationToken cancellationToken)
+    public async Task Handle(PublicEvents.DrinksOrdered notification, CancellationToken cancellationToken)
     {
         var table = await tablesCollection.GetAsync(notification.TableId);
 

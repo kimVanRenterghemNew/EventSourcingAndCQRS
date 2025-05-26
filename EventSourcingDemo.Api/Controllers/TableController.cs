@@ -36,7 +36,7 @@ public class TableController
     /// <example>
     /// GET /api/Table/all?start=2025-05-26T00:00:00Z&end=2025-05-28T00:00:00Z
     /// </example>
-    [HttpGet("all")]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IEnumerable<Application.Query.Table>> GetAllTables([FromQuery] DateTime start, [FromQuery] DateTime end, [FromServices] IMediator mediator)
     {

@@ -63,6 +63,7 @@ public class MongoDbTablesStore : TablesStore
             ),
             nameof(DrinksOrdered) => new DrinksOrdered(
                 new Order(
+                    Guid.Parse(eventDoc["Order"]["OrderId"].AsString),
                     eventDoc["Order"]["ProductName"].AsString,
                     eventDoc["Order"]["ProductId"].AsInt32,
                     eventDoc["Order"]["Quantity"].AsInt32,

@@ -1,5 +1,5 @@
 ﻿namespace EventSourcingDemo;
-public record DrinksOrdered(Order Order) : TableEvent
+public record DrinksServed(Guid Order) : TableEvent
 {
     public void Accept(EventVisitor visitor)
     {

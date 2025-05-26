@@ -20,7 +20,7 @@ namespace EventSourcingDemo.Integration.Test
         {
             var start = DateTime.UtcNow.Date;
             var end = DateTime.UtcNow.AddDays(2).Date;
-            var tablesResponse = await _client.GetAsync($"/api/Table/all?start={start:O}&end={end:O}");
+            var tablesResponse = await _client.GetAsync($"/api/Table?start={start:O}&end={end:O}");
             tablesResponse.EnsureSuccessStatusCode();
             var tables = await tablesResponse.Content.ReadFromJsonAsync<List<JsonElement>>();
 
@@ -53,7 +53,7 @@ namespace EventSourcingDemo.Integration.Test
             // Haal alle tafels op
             var start = DateTime.UtcNow.Date;
             var end = DateTime.UtcNow.AddDays(2).Date;
-            var tablesResponse = await _client.GetAsync($"/api/Table/all?start={start:O}&end={end:O}");
+            var tablesResponse = await _client.GetAsync($"/api/Table?start={start:O}&end={end:O}");
             tablesResponse.EnsureSuccessStatusCode();
             var tables = await tablesResponse.Content.ReadFromJsonAsync<List<JsonElement>>();
 
@@ -72,7 +72,7 @@ namespace EventSourcingDemo.Integration.Test
             // Haal alle tafels op
             var start = DateTime.UtcNow.Date;
             var end = DateTime.UtcNow.AddDays(2).Date;
-            var tablesResponse = await _client.GetAsync($"/api/Table/all?start={start:O}&end={end:O}");
+            var tablesResponse = await _client.GetAsync($"/api/Table?start={start:O}&end={end:O}");
             tablesResponse.EnsureSuccessStatusCode();
             var tables = await tablesResponse.Content.ReadFromJsonAsync<List<JsonElement>>();
 
@@ -90,6 +90,7 @@ namespace EventSourcingDemo.Integration.Test
                 ReservationId = reservationId,
                 Order = new
                 {
+                    OrderId = Guid.NewGuid(),
                     ProductName = "Zeven Zonden Avaritia",
                     ProductId = 5668,
                     Quantity = 2,

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace EventSourcingDemo.PublicEvetns;
+namespace EventSourcingDemo.PublicEvents;
 
 public record TableReserved(
         Guid ReservationId,

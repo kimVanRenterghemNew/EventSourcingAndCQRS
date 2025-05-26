@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcingDemo", "EventSourcingDemo\EventSourcingDemo.csproj", "{4105AB5E-9EB9-4B78-8BAD-EE5ED76FF03F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ventSourcingDemo.Test", "ventSourcingDemo.Test\ventSourcingDemo.Test.csproj", "{A1291513-4309-4DBC-AA14-9AD3D58BBC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcingDemo.Test", "EventSourcingDemo.Test\EventSourcingDemo.Test.csproj", "{A1291513-4309-4DBC-AA14-9AD3D58BBC48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DC08EE7B-1323-4BE1-848D-AE70119961F8}"
 	ProjectSection(SolutionItems) = preProject

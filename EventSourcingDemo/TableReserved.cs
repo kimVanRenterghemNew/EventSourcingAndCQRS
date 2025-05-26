@@ -8,7 +8,7 @@ public record TableReserved(
         int NrOfGuests
     ) : TableEvent
 {
-    public void Acept(EventVisitor visitor)
+    public void Accept(EventVisitor visitor)
     {
         visitor.Visit(this);
     }

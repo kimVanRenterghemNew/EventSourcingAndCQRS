@@ -37,11 +37,23 @@ public class Table : BaseAggregate<TableEvent>
         PublishNewEvent(new DrinksOrdered(order));
     }
 
+    public void ServeDrinks(Guid order)
+    {
+        var existingOrder = _orders.FirstOrDefault(o => o.OrderId == order);
+        
+        if (existingOrder != null)
+        {
+            throw new Exception("This order dos not exists.");
+        }
+        PublishNewEvent(new DrinksServed(order));
+    }
+
     // register all events handlers
     private void RegisterHandlers()
     {
         RegisterHandler<TableReserved>(TableReservedHandler);
         RegisterHandler<DrinksOrdered>(DrinksOrderedHandler);
+        RegisterHandler<DrinksServed>(DrinksServedHandler);
     }
 
     //play the event
@@ -59,5 +71,12 @@ public class Table : BaseAggregate<TableEvent>
         Name = @event.Name;
         DateTime = @event.DateTime;
         NrOfGuests = @event.NrOfGuests;
+    }
+
+    private void DrinksServedHandler(DrinksServed served)
+    {
+        var existingOrder = _orders.FirstOrDefault(o => o.OrderId == served.Order);
+
+        _orders.Remove(existingOrder);
     }
 }

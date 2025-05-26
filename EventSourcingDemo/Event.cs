@@ -2,12 +2,13 @@
 
 public interface Event
 {
-    void Acept(EventVisitor visitor);
+    void Accept(EventVisitor visitor);
 }
 
 
 public interface EventVisitor
 {
-    void Visit(DrinksOrdered tableReserved);
+    void Visit(DrinksOrdered ordered);
     void Visit(TableReserved tableReserved);
+    void Visit(DrinksServed served);
 }

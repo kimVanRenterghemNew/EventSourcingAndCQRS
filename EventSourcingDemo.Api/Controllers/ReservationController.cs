@@ -59,4 +59,26 @@ public class ReservationController : ControllerBase
         await mediator.Send(command);
         return Ok();
     }
+    
+    /// <summary>
+    /// Mark an order as served
+    /// </summary>
+    /// <param name="command">Serve drinks command</param>
+    /// <returns></returns>
+    /// <response code="200">Order marked as served</response>
+    /// <example>
+    /// POST /api/Reservation/serve-drinks
+    /// {
+    ///   "orderId": "00000000-0000-0000-0000-000000000000",
+    ///   "reservationId": "8574f669-1c33-439f-ab64-1875367aa57e"
+    /// }
+    /// </example>
+    [HttpPost("serve-drinks")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ServeDrinks([FromBody] ServeDrinksCommand command, [FromServices] IMediator mediator)
+    {
+        await mediator.Send(command);
+        return Ok();
+    }
 }
