@@ -1,14 +1,13 @@
 using Xunit;
-using EventSourcingDemo;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using FluentAssertions;
 using System;
 
-namespace ventSourcingDemo.Test
+namespace EventSourcingDemo.Test
 {
-    public class UnitTest1
+    public class TableAggregateTests
     {
         [Fact]
         public async ValueTask Should_Emit_TableReservedEvent_On_Create()
@@ -49,6 +48,7 @@ namespace ventSourcingDemo.Test
 
             var aggregate = new Table(events);
             aggregate.OrderDrinks(new Order(
+                                            Guid.NewGuid(),
                 ProductName: "Martini",
                 ProductId: 6,
                 Quantity: 2,
@@ -70,6 +70,7 @@ namespace ventSourcingDemo.Test
                 .BeEquivalentTo(
                     new DrinksOrdered(
                         new Order(
+                                  Guid.NewGuid(),
                             ProductName: "Martini",
                             ProductId: 6,
                             Quantity: 2,
@@ -94,6 +95,7 @@ namespace ventSourcingDemo.Test
                 ),
                 new DrinksOrdered(
                     new Order(
+                              Guid.NewGuid(),
                         ProductName: "Aperitif mison",
                         ProductId: 6,
                         Quantity: 2,
@@ -103,6 +105,7 @@ namespace ventSourcingDemo.Test
                 ),
                 new DrinksOrdered(
                     new Order(
+                              Guid.NewGuid(),
                         ProductName: "Aperitif mison",
                         ProductId: 6,
                         Quantity: 2,
@@ -116,6 +119,7 @@ namespace ventSourcingDemo.Test
             var aggregate = new Table(events);
             var act = () => aggregate.OrderDrinks(
                 new Order(
+                          Guid.NewGuid(),
                     ProductName: "martinie",
                     ProductId: 8,
                     Quantity: 2,

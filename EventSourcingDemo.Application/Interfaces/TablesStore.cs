@@ -1,4 +1,4 @@
-﻿namespace EventSourcingDemo.Application.Commands;
+﻿namespace EventSourcingDemo.Application.Interfaces;
 
 public interface TablesStore
 {

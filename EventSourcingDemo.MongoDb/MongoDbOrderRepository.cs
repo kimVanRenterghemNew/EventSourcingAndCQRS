@@ -1,5 +1,4 @@
-using EventSourcingDemo.Application.Projector;
-using EventSourcingDemo.Application.Query;
+using EventSourcingDemo.Application.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -53,7 +52,7 @@ public class MongoDbOrderRepository : OrderCollection
                 doc.GetValue("productId", 0).AsInt32,
                 doc.GetValue("quantity", 0).AsInt32,
                 doc.GetValue("comment", "").AsString,
-                doc.GetValue("status", "InQueue").AsString // status als string
+                doc.GetValue("status", "InQueue").AsString 
             ));
         return orders;
     }

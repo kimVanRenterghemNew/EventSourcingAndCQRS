@@ -1,5 +1,5 @@
+using EventSourcingDemo.Application.Interfaces;
 using MediatR;
-using EventSourcingDemo.Application.Projector;
 
 namespace EventSourcingDemo.Application.Commands;
 
@@ -8,19 +8,12 @@ public record ServeDrinksCommand(
     Guid ReservationId
 ) : IRequest;
 
-public class ServeDrinksCommandHandler : IRequestHandler<ServeDrinksCommand>
+public class ServeDrinksCommandHandler(TablesStore tablesStore) : IRequestHandler<ServeDrinksCommand>
 {
-    private readonly TablesStore _tablesStore;
-    private readonly OrderCollection _orderCollection;
-    public ServeDrinksCommandHandler(TablesStore tablesStore, OrderCollection orderCollection)
-    {
-        _tablesStore = tablesStore;
-        _orderCollection = orderCollection;
-    }
     public async Task Handle(ServeDrinksCommand request, CancellationToken cancellationToken)
     {
-        var table = await _tablesStore.Get(request.ReservationId);
+        var table = await tablesStore.Get(request.ReservationId);
         table.ServeDrinks(request.OrderId);
-        await _tablesStore.SaveAsync(table);
+        await tablesStore.SaveAsync(table);
     }
 }

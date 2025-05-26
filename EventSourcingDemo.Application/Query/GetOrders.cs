@@ -1,4 +1,4 @@
-﻿using EventSourcingDemo.Application.Projector;
+﻿using EventSourcingDemo.Application.Interfaces;
 using MediatR;
 
 namespace EventSourcingDemo.Application.Query;
@@ -7,16 +7,10 @@ public record GetOrders() : IRequest<IEnumerable<Order>>;
 
 
 
-public class GetOrdersHandler : IRequestHandler<GetOrders, IEnumerable<Order>>
+public class GetOrdersHandler(OrderCollection orderCollection) : IRequestHandler<GetOrders, IEnumerable<Order>>
 {
-    private readonly OrderCollection _orderCollection;
-    public GetOrdersHandler(OrderCollection orderCollection)
-    {
-        _orderCollection = orderCollection;
-    }
-
     public async Task<IEnumerable<Order>> Handle(GetOrders request, CancellationToken cancellationToken)
     {
-        return await _orderCollection.GetAsync();
+        return await orderCollection.GetAsync();
     }
 }

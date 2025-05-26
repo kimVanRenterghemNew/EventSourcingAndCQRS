@@ -1,4 +1,4 @@
-﻿using EventSourcingDemo.Application.Query;
+﻿using EventSourcingDemo.Application.Interfaces;
 using MediatR;
 
 namespace EventSourcingDemo.Application.Projector;
@@ -24,11 +24,8 @@ public class TableProjector(TablesCollection tablesCollection) : INotificationHa
 
         var reservation = table.Reservations.First(r => r.ReservationId == notification.ReservationId) ;
 
-        if (reservation != null)
-        {
-            reservation = reservation with { TotalCost = reservation.TotalCost + notification.Order.Price };
-            table = table.Update(reservation);
-        }
+        reservation = reservation with { TotalCost = reservation.TotalCost + notification.Order.Price };
+        table = table.Update(reservation);
 
         await tablesCollection.UpdateAsync(table);
     }

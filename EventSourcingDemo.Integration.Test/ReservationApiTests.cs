@@ -79,8 +79,8 @@ namespace EventSourcingDemo.Integration.Test
             Assert.NotNull(tables);
             var table3 = tables.FirstOrDefault(t => t.GetProperty("id").GetInt32() == 3);
             var reservations = table3.GetProperty("reservations").EnumerateArray();
-            var reservatie = reservations.FirstOrDefault();
-            var reservationIdStr = reservatie.ValueKind != JsonValueKind.Undefined ? reservatie.GetProperty("reservationId").GetString() : null;
+            var reservation = reservations.FirstOrDefault();
+            var reservationIdStr = reservation.ValueKind != JsonValueKind.Undefined ? reservation.GetProperty("reservationId").GetString() : null;
             Assert.False(string.IsNullOrEmpty(reservationIdStr));
             var reservationId = Guid.Parse(reservationIdStr);
 

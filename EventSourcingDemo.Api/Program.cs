@@ -1,6 +1,5 @@
 using EventSourcingDemo.Application.Commands;
-using EventSourcingDemo.Application.Projector;
-using EventSourcingDemo.Application.Query;
+using EventSourcingDemo.Application.Interfaces;
 using EventSourcingDemo.MongoDb;
 
 namespace EventSourcingDemo.Api;
@@ -30,14 +29,13 @@ public class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventSourcingDemo API V1");
-                c.RoutePrefix = string.Empty; // Launches Swagger at root
+                c.RoutePrefix = string.Empty; 
             });
             app.MapOpenApi();
         }

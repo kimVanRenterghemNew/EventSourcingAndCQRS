@@ -1,4 +1,5 @@
-﻿using EventSourcingDemo.Application.Query;
+﻿using EventSourcingDemo.Application.Interfaces;
+using EventSourcingDemo.Application.Query;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -92,7 +93,7 @@ public class MongoDbTablesRepository : TablesCollection
                 ));
             }
         }
-        return new Application.Query.Table(tableId, reservations);
+        return new (tableId, reservations);
     }
 
     public async Task UpdateAsync(Application.Query.Table table)

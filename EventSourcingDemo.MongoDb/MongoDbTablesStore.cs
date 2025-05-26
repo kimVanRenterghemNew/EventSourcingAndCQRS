@@ -1,4 +1,4 @@
-﻿using EventSourcingDemo.Application.Commands;
+﻿using EventSourcingDemo.Application.Interfaces;
 using MediatR;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -33,14 +33,14 @@ public class MongoDbTablesStore : TablesStore
 
     public async Task<Table> Get(Guid requestReservationId)
     {
-        var docs = await GetAlleventsForReservation(requestReservationId);
+        var docs = await GetAllEventsForReservation(requestReservationId);
 
         var events = docs.Select(ParseTableEvent).ToList();
 
         return new Table(events);
     }
 
-    private async Task<List<BsonDocument>> GetAlleventsForReservation(Guid requestReservationId)
+    private async Task<List<BsonDocument>> GetAllEventsForReservation(Guid requestReservationId)
     {
         var filter = Builders<BsonDocument>.Filter.Eq("metadata.ReservationId", requestReservationId.ToString());
         var sort = Builders<BsonDocument>.Sort.Ascending("metadata.CurrentDateTime");

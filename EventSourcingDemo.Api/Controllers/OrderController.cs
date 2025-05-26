@@ -1,5 +1,4 @@
 using EventSourcingDemo.Application.Query;
-using EventSourcingDemo.MongoDb;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

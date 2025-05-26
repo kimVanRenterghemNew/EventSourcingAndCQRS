@@ -6,7 +6,7 @@ public class Table : BaseAggregate<TableEvent>
     public string Name { get; private set; }
     public DateTime DateTime { get; private set; }
     public int NrOfGuests { get; private set; }
-    public double TotallBill { get; private set; } = 0.0;
+    public double TotalBill { get; private set; } = 0.0;
 
     private readonly List<Order> _orders = new();
 
@@ -61,7 +61,7 @@ public class Table : BaseAggregate<TableEvent>
     {
         _orders.Add(@event.Order);
         _nrOfDrinksOrdered += @event.Order.Quantity;
-        TotallBill += @event.Order.Price;
+        TotalBill += @event.Order.Price;
     }
 
     private void TableReservedHandler(TableReserved @event)
