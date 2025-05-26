@@ -22,7 +22,7 @@ public class Table : BaseAggregate<TableEvent>
     {
         RegisterHandlers();
 
-        //play all the evetns
+        //play all the evens
         events
             .ToList()
             .ForEach(PlayEvent);
@@ -36,7 +36,6 @@ public class Table : BaseAggregate<TableEvent>
 
         PublishNewEvent(new DrinksOrdered(order));
     }
-
     public void ServeDrinks(Guid order)
     {
         var existingOrder = _orders.FirstOrDefault(o => o.OrderId == order);
@@ -47,7 +46,6 @@ public class Table : BaseAggregate<TableEvent>
         }
         PublishNewEvent(new DrinksServed(order));
     }
-
     // register all events handlers
     private void RegisterHandlers()
     {
@@ -76,7 +74,6 @@ public class Table : BaseAggregate<TableEvent>
     private void DrinksServedHandler(DrinksServed served)
     {
         var existingOrder = _orders.FirstOrDefault(o => o.OrderId == served.Order);
-
         _orders.Remove(existingOrder);
     }
 }
