@@ -1,22 +1,24 @@
 ﻿namespace EventSourcingDemo;
-public class Table : BaseAggregate<TableEvents>
+public class Table : BaseAggregate<TableEvent>
 {
+    public Guid ReservationId { get; private set; }
     public int TableId { get; private set; }
     public string Name { get; private set; }
     public DateTime DateTime { get; private set; }
     public int NrOfGuests { get; private set; }
-    public int TotallBill { get; private set; }
+    public double TotallBill { get; private set; } = 0.0;
 
     private readonly List<Order> _orders = new();
+
     private int _nrOfDrinksOrdered = 0;
 
     public Table(int tableId, DateTime dateTime, string name, int nrOfGuests)
     {
         RegisterHandlers();
-        PublishNewEvent(new TableReserved(tableId, name, dateTime, nrOfGuests));
+        PublishNewEvent(new TableReserved(Guid.NewGuid() , tableId, name, dateTime, nrOfGuests));
     }
 
-    public Table(IEnumerable<TableEvents> events)
+    public Table(IEnumerable<TableEvent> events)
     {
         RegisterHandlers();
 
@@ -52,6 +54,7 @@ public class Table : BaseAggregate<TableEvents>
 
     private void TableReservedHandler(TableReserved @event)
     {
+        ReservationId = @event.ReservationId;
         TableId = @event.TableId;
         Name = @event.Name;
         DateTime = @event.DateTime;

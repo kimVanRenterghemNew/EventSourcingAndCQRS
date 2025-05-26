@@ -13,8 +13,8 @@ namespace ventSourcingDemo.Test
         [Fact]
         public async ValueTask Should_Emit_TableReservedEvent_On_Create()
         {
-            var aggregate = new Table(6, new (2021, 12, 31), "kim vr", 2);
-            var events = new List<TableEvents>();
+            var aggregate = new Table(6, new(2021, 12, 31), "kim vr", 2);
+            var events = new List<TableEvent>();
             await aggregate.PlayAllEvents(async e =>
             {//because normally this is an async write to the db
                 await Task.FromResult(0);
@@ -22,22 +22,24 @@ namespace ventSourcingDemo.Test
             });
 
             events.Should().ContainSingle();
-
+            var id = (events[0] as TableReserved).ReservationId;
             events[0]
                 .Should()
                 .BeEquivalentTo(new TableReserved(
+                    id,
                     TableId: 6,
                     Name: "kim vr",
-                    DateTime: new (2021, 12, 31),
+                    DateTime: new(2021, 12, 31),
                     NrOfGuests: 2));
         }
 
         [Fact]
         public async ValueTask Should_be_able_to_order_a_drink()
         {
-            var events = new TableEvents[]
+            var events = new TableEvent[]
             {
                 new TableReserved(
+        Guid.NewGuid(),
                     TableId: 6,
                     Name: "kim vr",
                     DateTime: new (2021, 12, 31),
@@ -55,7 +57,7 @@ namespace ventSourcingDemo.Test
                 )
             );
 
-            var newEvents = new List<TableEvents>();
+            var newEvents = new List<TableEvent>();
             await aggregate.PlayAllEvents(async e =>
             {
                 await Task.FromResult(0);
@@ -81,13 +83,14 @@ namespace ventSourcingDemo.Test
         [Fact]
         public async ValueTask Should_only_allaw_2_times_a_drinks_order()
         {
-            var events = new TableEvents[]
+            var events = new TableEvent[]
             {
                 new TableReserved(
-                    TableId: 6,
-                    Name: "kim vr",
-                    DateTime: new (2021, 12, 31),
-                    NrOfGuests: 2
+                                  Guid.NewGuid(),
+                                  TableId: 6,
+                                  Name: "kim vr",
+                                  DateTime: new (2021, 12, 31),
+                                  NrOfGuests: 2
                 ),
                 new DrinksOrdered(
                     new Order(
@@ -108,7 +111,7 @@ namespace ventSourcingDemo.Test
                     )
                 ),
             };
-            var newEvents = new List<TableEvents>();
+            var newEvents = new List<TableEvent>();
 
             var aggregate = new Table(events);
             var act = () => aggregate.OrderDrinks(

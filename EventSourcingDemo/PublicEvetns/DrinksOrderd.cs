@@ -1,3 +1,5 @@
-﻿namespace EventSourcingDemo.PublicEvetns;
+﻿using MediatR;
 
-internal record DrinksOrdered(Order Order, int TableId, string Name);
+namespace EventSourcingDemo.PublicEvetns;
+
+public record DrinksOrdered(Guid ReservationId, Order Order, int TableId, string Name) : INotification;

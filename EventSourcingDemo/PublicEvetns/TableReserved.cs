@@ -1,4 +1,6 @@
-﻿namespace EventSourcingDemo;
+﻿using MediatR;
+
+namespace EventSourcingDemo.PublicEvetns;
 
 public record TableReserved(
         Guid ReservationId,
@@ -6,11 +8,4 @@ public record TableReserved(
         string Name,
         DateTime DateTime,
         int NrOfGuests
-    ) : TableEvent
-{
-    public void Acept(EventVisitor visitor)
-    {
-        visitor.Visit(this);
-    }
-}
-
+    ) : INotification;

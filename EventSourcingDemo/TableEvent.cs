@@ -1,6 +1,6 @@
 ﻿namespace EventSourcingDemo;
 
-public interface TableEvents : Event
+public interface TableEvent : Event
 {
 }
 

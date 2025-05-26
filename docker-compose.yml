@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  comand-mongo:
+    container_name: comand-mongo
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27018:27017"
+
+volumes:
+  mongo_data:
