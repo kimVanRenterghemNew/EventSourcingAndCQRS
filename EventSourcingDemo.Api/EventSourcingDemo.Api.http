@@ -1,0 +1,33 @@
+@EventSourcingDemo.Api_HostAddress = http://localhost:5215
+
+### Get all tables
+GET {{EventSourcingDemo.Api_HostAddress}}/api/Table/all?start=2025-05-26T00:00:00Z&end=2025-05-28T00:00:00Z
+Accept: application/json
+
+### Seed tables
+POST {{EventSourcingDemo.Api_HostAddress}}/api/Table/seed
+Accept: application/json
+
+### Create reservation
+POST {{EventSourcingDemo.Api_HostAddress}}/api/Reservation/create-reservation
+Content-Type: application/json
+{
+  "tableId": 3,
+  "name": "howest",
+  "dateTime": "2025-05-27T16:25:00.365Z",
+  "nrOfGuests": 6
+}
+
+### Order drinks
+POST {{EventSourcingDemo.Api_HostAddress}}/api/Reservation/order-drinks
+Content-Type: application/json
+{
+  "reservationId": "8574f669-1c33-439f-ab64-1875367aa57e",
+  "order": {
+    "productName": "Zeven Zonden Avaritia",
+    "productId": 5668,
+    "quantity": 2,
+    "price": 3.5,
+    "comment": ""
+  }
+}
