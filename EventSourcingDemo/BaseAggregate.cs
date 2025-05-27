@@ -3,7 +3,7 @@
 public abstract class BaseAggregate<TEventInterface>
     where TEventInterface : Event
 {
-    private readonly List<TEventInterface> _events = new ();
+    private readonly List<TEventInterface> _events = [];
     private readonly Dictionary<Type, List<Action<Event>>> _routes = new ();
 
     protected IEnumerable<TEventInterface> Events => [.. _events];
@@ -21,7 +21,7 @@ public abstract class BaseAggregate<TEventInterface>
     {
         if (!_routes.TryGetValue(typeof(TEvent), out var handlers))
         {
-            handlers = new List<Action<Event>>();
+            handlers = [];
             _routes.Add(typeof(TEvent), handlers);
         }
 

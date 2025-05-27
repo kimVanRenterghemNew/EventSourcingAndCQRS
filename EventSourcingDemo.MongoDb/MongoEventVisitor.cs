@@ -5,19 +5,21 @@ namespace EventSourcingDemo.MongoDb
 {
     public class MongoEventVisitor(string reservationId, Table table) : EventVisitor
     {
+#pragma warning disable S1450
         private BsonDocument? _doc;
         private INotification _event;
+#pragma warning restore S1450
 
-        public void Visit(DrinksOrdered drinksOrdered)
+        public void Visit(DrinksOrdered ordered)
         {
             var orderDoc = new BsonDocument
             {
-                    { "OrderId", drinksOrdered.Order.OrderId.ToString() },
-                    { "ProductName", drinksOrdered.Order.ProductName },
-                    { "ProductId", drinksOrdered.Order.ProductId },
-                    { "Quantity", drinksOrdered.Order.Quantity },
-                    { "Price", drinksOrdered.Order.Price },
-                    { "Comment", drinksOrdered.Order.Comment }
+                    { "OrderId", ordered.Order.OrderId.ToString() },
+                    { "ProductName", ordered.Order.ProductName },
+                    { "ProductId", ordered.Order.ProductId },
+                    { "Quantity", ordered.Order.Quantity },
+                    { "Price", ordered.Order.Price },
+                    { "Comment", ordered.Order.Comment }
             };
             var eventDoc = new BsonDocument
             {
@@ -33,7 +35,7 @@ namespace EventSourcingDemo.MongoDb
                             { "ReservationId", reservationId }
                     }}
             };
-            _event = new PublicEvents.DrinksOrdered(drinksOrdered.Order.OrderId, Guid.Parse(reservationId), drinksOrdered.Order, table.TableId, table.Name);
+            _event = new PublicEvents.DrinksOrdered(ordered.Order.OrderId, Guid.Parse(reservationId), ordered.Order, table.TableId, table.Name);
         }
 
         public void Visit(TableReserved tableReserved)

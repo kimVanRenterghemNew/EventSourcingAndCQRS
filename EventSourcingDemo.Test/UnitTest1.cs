@@ -21,7 +21,7 @@ namespace EventSourcingDemo.Test
             });
 
             events.Should().ContainSingle();
-            var id = (events[0] as TableReserved).ReservationId;
+            var id = ((TableReserved)events[0]).ReservationId;
             events[0]
                 .Should()
                 .BeEquivalentTo(new TableReserved(
@@ -82,7 +82,7 @@ namespace EventSourcingDemo.Test
         }
 
         [Fact]
-        public async ValueTask Should_only_allaw_2_times_a_drinks_order()
+        public async ValueTask Should_only_allow_2_times_a_drinks_order()
         {
             var events = new TableEvent[]
             {

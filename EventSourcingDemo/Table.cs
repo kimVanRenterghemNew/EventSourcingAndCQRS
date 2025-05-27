@@ -8,7 +8,7 @@ public class Table : BaseAggregate<TableEvent>
     public int NrOfGuests { get; private set; }
     public double TotalBill { get; private set; } = 0.0;
 
-    private readonly List<Order> _orders = new();
+    private readonly List<Order> _orders = [];
 
     private int _nrOfDrinksOrdered = 0;
 
@@ -32,7 +32,7 @@ public class Table : BaseAggregate<TableEvent>
     public void OrderDrinks(Order order)
     {
         if (_nrOfDrinksOrdered >= 2 * NrOfGuests)
-            throw new Exception("Too many drinks :-)");
+            throw new ArgumentException("Too many drinks :-)");
 
         PublishNewEvent(new DrinksOrdered(order));
     }
@@ -42,7 +42,7 @@ public class Table : BaseAggregate<TableEvent>
         
         if (existingOrder == null)
         {
-            throw new Exception("This order dos not exists.");
+            throw new ArgumentException("This order dos not exists.");
         }
         PublishNewEvent(new DrinksServed(order));
     }

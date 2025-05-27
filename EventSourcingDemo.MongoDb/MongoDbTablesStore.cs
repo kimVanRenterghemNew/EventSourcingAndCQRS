@@ -15,7 +15,7 @@ public class MongoDbTablesStore : TablesStore
         _mediator = mediator;
         var client = new MongoClient("mongodb://localhost:27018");
         var database = client.GetDatabase("EventSourcingDemo");
-        _collection = database.GetCollection<BsonDocument>("tebleReservationStream");
+        _collection = database.GetCollection<BsonDocument>("tableReservationStream");
     }
 
     public async Task SaveAsync(Table table)

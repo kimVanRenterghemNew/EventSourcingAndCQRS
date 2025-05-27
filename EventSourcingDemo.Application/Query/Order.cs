@@ -8,5 +8,5 @@ public record Order(
     int ProductId,
     int Quantity,
     string Comment,
-    string Status // Status als string
+    string Status 
 );
