@@ -96,7 +96,7 @@ namespace EventSourcingDemo.Test
                 new DrinksOrdered(
                     new Order(
                               Guid.NewGuid(),
-                        ProductName: "Aperitif mison",
+                        ProductName: "Aperitif maison",
                         ProductId: 6,
                         Quantity: 2,
                         Price: 6,
@@ -106,7 +106,7 @@ namespace EventSourcingDemo.Test
                 new DrinksOrdered(
                     new Order(
                               Guid.NewGuid(),
-                        ProductName: "Aperitif mison",
+                        ProductName: "Aperitif maison",
                         ProductId: 6,
                         Quantity: 2,
                         Price: 6,
@@ -120,7 +120,7 @@ namespace EventSourcingDemo.Test
             var act = () => aggregate.OrderDrinks(
                 new Order(
                           Guid.NewGuid(),
-                    ProductName: "martinie",
+                    ProductName: "Martini",
                     ProductId: 8,
                     Quantity: 2,
                     Price: 14,
