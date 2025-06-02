@@ -26,7 +26,6 @@ namespace EventSourcingDemo.Integration.Test
 
             if (tables != null && tables.Count == 0)
             {
-                // Seed de database
                 var seedResponse = await _client.PostAsync("/api/Table/seed", null);
                 seedResponse.EnsureSuccessStatusCode();
             }
@@ -35,7 +34,6 @@ namespace EventSourcingDemo.Integration.Test
         [Fact]
         public async Task Can_Create_Reservation()
         {
-            // Maak een reservatie voor tafel 3
             var reservation = new
             {
                 TableId = 3,
@@ -50,7 +48,6 @@ namespace EventSourcingDemo.Integration.Test
         [Fact]
         public async Task Then_Is_Reservation_Added_To_Table()
         {
-            // Haal alle tafels op
             var start = DateTime.UtcNow.Date;
             var end = DateTime.UtcNow.AddDays(2).Date;
             var tablesResponse = await _client.GetAsync($"/api/Table?start={start:O}&end={end:O}");
@@ -67,9 +64,8 @@ namespace EventSourcingDemo.Integration.Test
         }
 
         [Fact]
-        public async Task Plaats_Een_Order()
+        public async Task Place_A_Order()
         {
-            // Haal alle tafels op
             var start = DateTime.UtcNow.Date;
             var end = DateTime.UtcNow.AddDays(2).Date;
             var tablesResponse = await _client.GetAsync($"/api/Table?start={start:O}&end={end:O}");
@@ -84,7 +80,6 @@ namespace EventSourcingDemo.Integration.Test
             Assert.False(string.IsNullOrEmpty(reservationIdStr));
             var reservationId = Guid.Parse(reservationIdStr);
 
-            // Plaats een order
             var order = new
             {
                 ReservationId = reservationId,

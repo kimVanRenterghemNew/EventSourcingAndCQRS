@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DC08EE7B-1323-4BE1-848D-AE70119961F8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcingDemo.MongoDb", "EventSourcingDemo.MongoDb\EventSourcingDemo.MongoDb.csproj", "{AA5297F9-F941-4007-8798-342C26A14812}"

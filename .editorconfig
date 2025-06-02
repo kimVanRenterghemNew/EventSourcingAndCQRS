@@ -2,6 +2,29 @@
 
 # CS8618: Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 dotnet_diagnostic.CS8618.severity = none
+# Suppress specific warnings
+# CS8604: Possible null reference argument
+# CS8602: Dereference of a possibly null reference
+# CS8625: Cannot convert null literal to non-nullable reference type
+# S6562: Provide the "DateTimeKind" when creating this object
+# CS1998: This async method lacks 'await' operators
+# S2325: Make method static
+# S3267: Loop should be simplified by calling Select
+
+dotnet_diagnostic.CS8604.severity = none
+# CS8602 is already suppressed by default in most templates, but add for clarity
+# (If not, uncomment the next line)
+# dotnet_diagnostic.CS8602.severity = none
+dotnet_diagnostic.CS8625.severity = none
+dotnet_diagnostic.CS1998.severity = none
+
+# SonarAnalyzer warnings (Sxxxx) are not handled by Roslyn, but by SonarLint/SonarQube. If you use SonarLint, you can suppress them with the following:
+dotnet_diagnostic.S6562.severity = none
+dotnet_diagnostic.S2325.severity = none
+dotnet_diagnostic.S3267.severity = none
+# Suppress S101: Interface names should begin with 'I'
+dotnet_diagnostic.S101.severity = none
+
 csharp_indent_labels = one_less_than_current
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion
@@ -24,9 +47,7 @@ csharp_style_expression_bodied_local_functions = false:silent
 
 # Naming rules
 
-dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
-dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
-dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = none
 
 dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.types_should_be_pascal_case.symbols = types

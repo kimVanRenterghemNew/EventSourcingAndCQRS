@@ -27,7 +27,7 @@ public class ReservationController : ControllerBase
     [HttpPost("create-reservation")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<Guid> CreateReservation([FromBody] CreateReservationCommand command, IMediator mediator)
+    public async Task<Guid> CreateReservation([FromBody] CreateReservationCommand command, [FromServices] IMediator mediator)
     {
         return await mediator.Send(command);
     }
@@ -59,7 +59,7 @@ public class ReservationController : ControllerBase
         await mediator.Send(command);
         return Ok();
     }
-    
+
     /// <summary>
     /// Mark an order as served
     /// </summary>

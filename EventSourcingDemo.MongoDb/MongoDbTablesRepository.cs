@@ -25,7 +25,7 @@ public class MongoDbTablesRepository : TablesCollection
     {
         var client = new MongoClient("mongodb://localhost:27018");
         var database = client.GetDatabase("EventSourcingDemo");
-        _collection = database.GetCollection<BsonDocument>("teblesProjection");
+        _collection = database.GetCollection<BsonDocument>("tablesProjection");
     }
 
     public async Task SaveAsync(Application.Query.Table table)
